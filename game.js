@@ -246,19 +246,30 @@
       const c = Sound.ensure();
       if (!c) { this.failed = true; return; }
       this.loading = true;
-      const tracks = this.cfg.tracks || [];
-      Promise.all(tracks.map(t =>
+      this.buffers = [];
+      const tracks = (this.cfg.tracks || []).slice();
+      /* 关键：不等 Promise.all。
+         菲比比 287KB、菲比啾比 769KB，如果等两条都到齐才启用，
+         手机上要多等好几秒才出声。这里先拉小的那条，到手就能播。 */
+      tracks.sort((a, b) => (a.duration || 0) - (b.duration || 0));
+      let pending = tracks.length;
+      tracks.forEach(t => {
         fetch(t.file)
           .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.arrayBuffer(); })
           .then(ab => c.decodeAudioData(ab))
-          .then(buf => ({ track: t, buf }))
-      )).then(list => {
-        this.buffers = list;
-        this.loading = false;
-      }).catch(err => {
-        this.failed = true;
-        this.loading = false;
-        if (window.console) console.warn('[dafeibi] 语音素材载入失败，已回退为合成音：' + err);
+          .then(buf => {
+            this.buffers.push({ track: t, buf });
+            if (window.console) console.log('[dafeibi] 语音就绪：' + t.name);
+          })
+          .catch(err => {
+            if (window.console) console.warn('[dafeibi] 语音载入失败 ' + t.file + '：' + err);
+          })
+          .then(() => {
+            if (--pending === 0) {
+              this.loading = false;
+              if (!this.buffers.length) this.failed = true;
+            }
+          });
       });
     },
 
@@ -311,6 +322,38 @@
       return true;
     }
   };
+
+  /* iOS / Safari 的音频解锁
+     -------------------------------------------------------
+     AudioContext 必须在**一次真实的用户手势**里 resume()，
+     否则之后在物理循环里（合成发生时）再调 resume 会被直接拒绝，
+     表现出来就是「贴图正常、但一点声音都没有」。
+     所以第一次点按 / 触摸 / 按键时把它解开，并顺手开始拉语音。 */
+  let audioUnlocked = false;
+  function unlockAudio() {
+    const c = Sound.ensure();
+    if (!c) return;
+    const after = () => {
+      audioUnlocked = true;
+      Voice.load();                       // 解锁后立刻开始拉语音，别等
+    };
+    if (c.state === 'suspended') {
+      c.resume().then(() => {
+        /* 再播一个 1 采样的静音，把音频管线彻底唤醒（老版 Safari 需要） */
+        try {
+          const b = c.createBuffer(1, 1, c.sampleRate);
+          const s = c.createBufferSource();
+          s.buffer = b; s.connect(c.destination); s.start(0);
+        } catch (e) { /* 忽略 */ }
+        after();
+      }).catch(() => { /* 忽略 */ });
+    } else {
+      after();
+    }
+  }
+  window.addEventListener('pointerdown', unlockAudio, true);
+  window.addEventListener('touchstart', unlockAudio, true);
+  window.addEventListener('keydown', unlockAudio, true);
 
   /* 手机上的轻微震动反馈（跟着静音开关走；不支持的浏览器自动忽略） */
   function haptic(ms) {
@@ -1517,8 +1560,9 @@
     reset();
     loadBlur();             // 占位图是内联的，几乎立刻可用
     loadSprites();          // 贴图异步到位，到了会自动重画预览
-    /* 语音有 1MB，等首屏铺完再后台拉，不跟贴图抢带宽 */
-    setTimeout(() => Voice.load(), 1500);
+    /* 语音有 1MB。桌面端不需要手势就能解码，这里 0.8 秒后先拉起来；
+       手机端则由 unlockAudio() 在第一次触摸时更早触发。 */
+    setTimeout(() => Voice.load(), 800);
     requestAnimationFrame((t) => { last = t; requestAnimationFrame(frame); });
   }
 
@@ -1532,5 +1576,13 @@
   window.__DFB__ = { state, reset, revive, settle, gameOver, tryDrop, stepPhysics, update, FRUITS,
                      render, resizeCanvas, shapeOf, makeBall, paintRevives, addScore,
                      MAX_BONUS, REVIVE_STEP, MAX_TIER, Voice,
+                     /* 音频排查用：控制台执行 __DFB__.audio() 看上下文状态 */
+                     audio: () => {
+                       const c = Sound.ensure();
+                       return { unlocked: audioUnlocked, state: c ? c.state : 'none',
+                                muted: Sound.muted,
+                                voiceReady: Voice.buffers ? Voice.buffers.length : 0,
+                                voiceLoading: Voice.loading, voiceFailed: Voice.failed };
+                     },
                      blurReady: () => !!blurImg };
 })();
