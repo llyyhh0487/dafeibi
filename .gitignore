@@ -1,0 +1,10 @@
+# 系统 / 编辑器产生的垃圾
+Thumbs.db
+desktop.ini
+.DS_Store
+*.swp
+*~
+
+# Python 缓存
+__pycache__/
+*.pyc

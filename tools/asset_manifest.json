@@ -1,0 +1,110 @@
+{
+  "_comment": "合成大菲比 贴图映射表。tier 索引 -> 源图。改顺序只需调这里，然后依次跑 normalize_assets.py / build_parts.py / make_blur.py。",
+  "_canvas": "与原版一致的画布边长（px），公式约 4.348*r 取整，上限 512",
+  "_fill": "主体占画布长边的比例，与 game.js 的 ASSET_FILL 一致",
+  "fill": 0.92,
+  "entries": [
+    {
+      "tier": 0,
+      "src": "dc2f8c664a4ea3d06942327afff881b8.jpg",
+      "out": "01-hoodie.webp",
+      "name": "黑衣娃",
+      "canvas": 76,
+      "wm": false
+    },
+    {
+      "tier": 1,
+      "src": "2a94f554f54d8d04e884fa283304946d.png",
+      "out": "02-hat.webp",
+      "name": "蓝帽娃",
+      "canvas": 100,
+      "wm": false
+    },
+    {
+      "tier": 2,
+      "src": "eef60db9d51c746aed778aa833e77eb0.png",
+      "out": "03-warrior.webp",
+      "name": "战神娃",
+      "canvas": 136,
+      "wm": false
+    },
+    {
+      "tier": 3,
+      "src": "4690c867035716494b381ce441602de4.jpg",
+      "out": "04-wink.webp",
+      "name": "眨眼娃",
+      "canvas": 172,
+      "wm": true,
+      "mode": "border"
+    },
+    {
+      "tier": 4,
+      "src": "9935d4d3b85648fd53ee96a791e59302.jpg",
+      "out": "05-sleepy.webp",
+      "name": "困困娃",
+      "canvas": 212,
+      "wm": true,
+      "mode": "union"
+    },
+    {
+      "tier": 5,
+      "src": "e4a9884660d86ce0209e54ddd05460f3.png",
+      "out": "06-redcoat.webp",
+      "name": "红袄娃",
+      "canvas": 252,
+      "wm": false
+    },
+    {
+      "tier": 6,
+      "src": "a1e157083e026780313c49891fbb96b8.jpg",
+      "out": "07-shy.webp",
+      "name": "害羞娃",
+      "canvas": 300,
+      "wm": true,
+      "mode": "union"
+    },
+    {
+      "tier": 7,
+      "src": "3f5fee71560443de5a781a022b746217.png",
+      "out": "08-lantern.webp",
+      "name": "提灯娃",
+      "canvas": 352,
+      "wm": false
+    },
+    {
+      "tier": 8,
+      "src": "4aa393e2cfd0db95eea1e63595ef358a.jpg",
+      "out": "09-ribbon.webp",
+      "name": "红缨娃",
+      "canvas": 412,
+      "wm": true,
+      "mode": "border"
+    },
+    {
+      "tier": 9,
+      "src": "8065a69b01ea1615b2b59e712e6eaebe.jpg",
+      "out": "10-think.webp",
+      "name": "寻思娃",
+      "canvas": 472,
+      "wm": true,
+      "mode": "union"
+    },
+    {
+      "tier": 10,
+      "src": "d52a291a39c17a7ac8575219ee6963b9.jpg",
+      "out": "11-sparkle.webp",
+      "name": "星星娃",
+      "canvas": 512,
+      "wm": true,
+      "mode": "union"
+    },
+    {
+      "tier": 11,
+      "src": "f3713b697093440d8d04684b07d159d4.png",
+      "out": "12-maid.webp",
+      "name": "女仆娃",
+      "canvas": 512,
+      "wm": false
+    }
+  ]
+}

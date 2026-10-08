@@ -1,0 +1,13 @@
+# 统一换行，避免 Windows/Linux 混行尾
+* text=auto eol=lf
+
+# 二进制素材，禁止任何换行转换
+*.webp binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.mp4   binary
+*.mp3   binary
+*.woff  binary
+*.woff2 binary

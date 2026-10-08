@@ -1,0 +1,350 @@
+[
+  {
+    "tier": 0,
+    "name": "黑衣娃",
+    "out": "01-hoodie.webp",
+    "canvas": 76,
+    "mode": "border",
+    "dropped_px": 0,
+    "wm_px": 0,
+    "subject": [
+      57,
+      70
+    ],
+    "bytes": 2082,
+    "mean": [
+      68,
+      64,
+      59
+    ],
+    "hi": [
+      185,
+      173,
+      159
+    ],
+    "lo": [
+      24,
+      23,
+      19
+    ]
+  },
+  {
+    "tier": 1,
+    "name": "蓝帽娃",
+    "out": "02-hat.webp",
+    "canvas": 100,
+    "mode": "alpha",
+    "dropped_px": 47,
+    "wm_px": 0,
+    "subject": [
+      90,
+      92
+    ],
+    "bytes": 4798,
+    "mean": [
+      181,
+      170,
+      156
+    ],
+    "hi": [
+      252,
+      248,
+      239
+    ],
+    "lo": [
+      40,
+      27,
+      26
+    ]
+  },
+  {
+    "tier": 2,
+    "name": "战神娃",
+    "out": "03-warrior.webp",
+    "canvas": 136,
+    "mode": "border",
+    "dropped_px": 0,
+    "wm_px": 0,
+    "subject": [
+      110,
+      125
+    ],
+    "bytes": 5040,
+    "mean": [
+      49,
+      42,
+      40
+    ],
+    "hi": [
+      169,
+      142,
+      143
+    ],
+    "lo": [
+      1,
+      2,
+      1
+    ]
+  },
+  {
+    "tier": 3,
+    "name": "眨眼娃",
+    "out": "04-wink.webp",
+    "canvas": 172,
+    "mode": "border",
+    "dropped_px": 2835,
+    "wm_px": 11181,
+    "subject": [
+      153,
+      158
+    ],
+    "bytes": 10882,
+    "mean": [
+      181,
+      170,
+      157
+    ],
+    "hi": [
+      253,
+      249,
+      244
+    ],
+    "lo": [
+      33,
+      19,
+      16
+    ]
+  },
+  {
+    "tier": 4,
+    "name": "困困娃",
+    "out": "05-sleepy.webp",
+    "canvas": 212,
+    "mode": "union",
+    "dropped_px": 3,
+    "wm_px": 8617,
+    "subject": [
+      195,
+      189
+    ],
+    "bytes": 12860,
+    "mean": [
+      177,
+      165,
+      151
+    ],
+    "hi": [
+      252,
+      239,
+      217
+    ],
+    "lo": [
+      32,
+      17,
+      15
+    ]
+  },
+  {
+    "tier": 5,
+    "name": "红袄娃",
+    "out": "06-redcoat.webp",
+    "canvas": 252,
+    "mode": "border",
+    "dropped_px": 0,
+    "wm_px": 0,
+    "subject": [
+      230,
+      232
+    ],
+    "bytes": 13580,
+    "mean": [
+      195,
+      175,
+      160
+    ],
+    "hi": [
+      251,
+      244,
+      235
+    ],
+    "lo": [
+      56,
+      30,
+      30
+    ]
+  },
+  {
+    "tier": 6,
+    "name": "害羞娃",
+    "out": "07-shy.webp",
+    "canvas": 300,
+    "mode": "union",
+    "dropped_px": 44110,
+    "wm_px": 14931,
+    "subject": [
+      276,
+      234
+    ],
+    "bytes": 11962,
+    "mean": [
+      233,
+      215,
+      187
+    ],
+    "hi": [
+      253,
+      242,
+      228
+    ],
+    "lo": [
+      174,
+      148,
+      120
+    ]
+  },
+  {
+    "tier": 7,
+    "name": "提灯娃",
+    "out": "08-lantern.webp",
+    "canvas": 352,
+    "mode": "border",
+    "dropped_px": 2950,
+    "wm_px": 0,
+    "subject": [
+      324,
+      319
+    ],
+    "bytes": 29082,
+    "mean": [
+      175,
+      167,
+      154
+    ],
+    "hi": [
+      254,
+      254,
+      252
+    ],
+    "lo": [
+      23,
+      7,
+      2
+    ]
+  },
+  {
+    "tier": 8,
+    "name": "红缨娃",
+    "out": "09-ribbon.webp",
+    "canvas": 412,
+    "mode": "border",
+    "dropped_px": 6,
+    "wm_px": 9594,
+    "subject": [
+      313,
+      379
+    ],
+    "bytes": 31132,
+    "mean": [
+      199,
+      180,
+      168
+    ],
+    "hi": [
+      252,
+      247,
+      236
+    ],
+    "lo": [
+      58,
+      28,
+      23
+    ]
+  },
+  {
+    "tier": 9,
+    "name": "寻思娃",
+    "out": "10-think.webp",
+    "canvas": 472,
+    "mode": "union",
+    "dropped_px": 454,
+    "wm_px": 10757,
+    "subject": [
+      434,
+      417
+    ],
+    "bytes": 34148,
+    "mean": [
+      181,
+      171,
+      159
+    ],
+    "hi": [
+      253,
+      246,
+      235
+    ],
+    "lo": [
+      33,
+      19,
+      16
+    ]
+  },
+  {
+    "tier": 10,
+    "name": "星星娃",
+    "out": "11-sparkle.webp",
+    "canvas": 512,
+    "mode": "union",
+    "dropped_px": 203,
+    "wm_px": 9777,
+    "subject": [
+      471,
+      471
+    ],
+    "bytes": 37576,
+    "mean": [
+      206,
+      194,
+      177
+    ],
+    "hi": [
+      254,
+      254,
+      254
+    ],
+    "lo": [
+      64,
+      49,
+      46
+    ]
+  },
+  {
+    "tier": 11,
+    "name": "女仆娃",
+    "out": "12-maid.webp",
+    "canvas": 512,
+    "mode": "border",
+    "dropped_px": 2953,
+    "wm_px": 0,
+    "subject": [
+      416,
+      471
+    ],
+    "bytes": 34218,
+    "mean": [
+      178,
+      168,
+      149
+    ],
+    "hi": [
+      254,
+      253,
+      249
+    ],
+    "lo": [
+      25,
+      9,
+      2
+    ]
+  }
+]
