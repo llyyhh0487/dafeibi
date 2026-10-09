@@ -885,15 +885,11 @@
     state.danger = danger;
   }
 
-  /* 正式结算：弹结算窗 + 把成绩交给排行榜 */
+  /* 正式结算：弹结算窗 */
   function settle() {
     if (revivePromptEl) revivePromptEl.hidden = true;
     if (overPanelEl) overPanelEl.hidden = false;
     if (overlayEl) overlayEl.classList.add('show');
-    /* 交给排行榜模块（没加载也不影响） */
-    if (window.DanaiwaBoard && window.DanaiwaBoard.onGameOver) {
-      window.DanaiwaBoard.onGameOver(state.score);
-    }
   }
 
   /* 越线那一屏：有复活币就先问一句 */

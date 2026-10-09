@@ -24,7 +24,7 @@
 - **碰撞体不是圆**：按贴图 alpha 轮廓自动生成多子圆碰撞形状（`assets/fruits/parts.js`）
 - **贴图三级兜底**：真图 → 内联模糊占位（`blur.js`）→ 程序化水果，弱网也不会看到「图挂了」
 - **音效**：合成音是 WebAudio 程序化合成，零音频文件；合成时会随机播一句「菲比啾比」/「菲比比」
-- **排行榜**：走 TinyWebDB 接口
+- **无后端**：没有排行榜、不上报任何数据，纯静态站点；最高分只存在本机 `localStorage`
 
 ## 目录
 
@@ -32,12 +32,11 @@
 index.html            入口
 game.js               游戏主体（物理 / 渲染 / 音效 / 语音）
 style.css
-leaderboard.min.js    排行榜
-sponsor.js            赞助弹窗
 assets/
   fruits/*.webp       12 级贴图
   fruits/parts.js     碰撞形状（自动生成）
   fruits/blur.js      模糊占位图（自动生成）
+  bg/*.webp           背景图 + 按钮底图（生图后压缩，见 tools/compress_bg.py）
   sfx/                合成语音素材 + 切句表
 tools/                素材管线脚本（离线跑，不参与部署）
 ```
