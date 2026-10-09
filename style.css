@@ -44,7 +44,7 @@ body {
   font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
                system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   background:
-    url("assets/bg/page-bg.webp?v=2") center / cover no-repeat,
+    url("assets/bg/page-bg.webp?v=3") center / cover no-repeat,
     radial-gradient(1200px 700px at 8% -12%,  #d8ecff 0%, transparent 60%),
     radial-gradient(1000px 780px at 50% 118%, #ffdbe6 0%, transparent 62%),
     #fff9f1;
@@ -73,7 +73,7 @@ body {
   aspect-ratio: 420 / 700;
   flex: 0 0 auto;
   border-radius: 24px;
-  background: url("assets/bg/board-bg.webp?v=2") center / cover no-repeat, #eef7fe;
+  background: url("assets/bg/board-bg.webp?v=3") center / cover no-repeat, #eef7fe;
   overflow: hidden;
   cursor: pointer;
   user-select: none;
@@ -355,7 +355,7 @@ body {
   border: 1px solid rgba(255, 255, 255, .75);
   border-radius: 14px;
   /* 生图裁出来的中段，横向拉伸；圆角由 border-radius 负责 */
-  background: url("assets/bg/btn-face.webp?v=2") center / 100% 100% no-repeat;
+  background: url("assets/bg/btn-face.webp?v=3") center / 100% 100% no-repeat;
   box-shadow: 0 6px 16px rgba(110, 130, 180, .22),
               inset 0 1px 0 rgba(255, 255, 255, .9);
   cursor: pointer;
@@ -373,7 +373,7 @@ body {
 .btn-primary {
   color: #fff;
   border-color: rgba(255, 255, 255, .6);
-  background: url("assets/bg/btn-face-primary.webp?v=2") center / 100% 100% no-repeat;
+  background: url("assets/bg/btn-face-primary.webp?v=3") center / 100% 100% no-repeat;
   text-shadow: 0 1px 2px rgba(150, 60, 20, .35);
   box-shadow: 0 6px 18px rgba(230, 110, 70, .34),
               inset 0 1px 0 rgba(255, 255, 255, .55);

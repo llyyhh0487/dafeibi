@@ -39,7 +39,10 @@ HTML = r"""<!DOCTYPE html>
   :root { --bg:#14161a; --panel:#1d2026; --line:#2c3038; --fg:#e8eaee; --dim:#8b93a1;
           --accent:#4da3ff; --mark:#22c55e; --warn:#f59e0b; }
   * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--fg);
+  /* scrollbar-gutter 让滚动条一出现就预留好位置，内容不会左右跳；
+     body 限宽 + 居中，免得在宽屏上被拉成一整条 */
+  html { background:var(--bg); scrollbar-gutter:stable; }
+  body { margin:0 auto; max-width:1440px; color:var(--fg);
          font:14px/1.5 system-ui,-apple-system,"Microsoft YaHei",sans-serif; }
   header { padding:14px 20px; border-bottom:1px solid var(--line); }
   h1 { margin:0 0 4px; font-size:17px; }
@@ -69,6 +72,8 @@ HTML = r"""<!DOCTYPE html>
   .rates button.on { background:var(--accent); border-color:var(--accent);
                      color:#06121f; font-weight:700; }
   .grid { display:grid; grid-template-columns:1fr 320px; gap:16px; align-items:start; }
+  /* 窗口窄了就把右侧导出栏挪到下面，别把左边的切点列表挤扁 */
+  @media (max-width:900px) { .grid { grid-template-columns:1fr; } }
   .panel { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:10px 12px; }
   .panel h3 { margin:0 0 8px; font-size:13px; color:var(--dim); font-weight:600; }
   .segs { max-height:300px; overflow:auto; font-variant-numeric:tabular-nums; }

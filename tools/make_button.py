@@ -17,6 +17,7 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 BG = os.path.join(ROOT, "assets", "bg")
+SRC = os.path.join(BG, "_src")     # 生图原始大图放这里，不进仓库
 
 JOBS = [
     ("btn-base.png", "btn-face.webp", 96),
@@ -43,7 +44,7 @@ def find_pill(im):
 
 def main():
     for src, dst, out_h in JOBS:
-        sp = os.path.join(BG, src)
+        sp = os.path.join(SRC, src)
         if not os.path.exists(sp):
             print("  [跳过] 没有 %s" % src)
             continue
