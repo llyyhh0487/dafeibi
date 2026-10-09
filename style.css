@@ -3,13 +3,14 @@
    ============================================================ */
 
 :root {
-  --ink:        #4a3325;
-  --ink-soft:   #8a7566;
-  --cream:      #fff7ec;
-  --brand:      #ff6b6b;
-  --brand-dark: #e14b4b;
-  --card:       rgba(255, 255, 255, .74);
-  --shadow:     0 18px 50px rgba(126, 84, 44, .18);
+  /* 冷调蓝灰，比原来的暖棕更"清新"；配色跟菲比的蓝白衣 + 紫瞳呼应 */
+  --ink:        #33445f;
+  --ink-soft:   #7d8ca6;
+  --cream:      #f4fbff;
+  --brand:      #4aa8f0;
+  --brand-dark: #2b7fd0;
+  --card:       rgba(252, 254, 255, .76);
+  --shadow:     0 18px 50px rgba(96, 128, 176, .20);
 
   /* 手机浏览器地址栏会吃掉 vh，dvh 更准；不支持的浏览器自动退回 vh */
   --vh:         100vh;
@@ -43,8 +44,8 @@ body {
   font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
                system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   background:
-    url("assets/bg/page-bg.webp") center / cover no-repeat,
-    radial-gradient(1200px 700px at 8% -12%,  #ffe9bd 0%, transparent 60%),
+    url("assets/bg/page-bg.webp?v=2") center / cover no-repeat,
+    radial-gradient(1200px 700px at 8% -12%,  #d8ecff 0%, transparent 60%),
     radial-gradient(1000px 780px at 50% 118%, #ffdbe6 0%, transparent 62%),
     #fff9f1;
   display: grid;
@@ -72,7 +73,7 @@ body {
   aspect-ratio: 420 / 700;
   flex: 0 0 auto;
   border-radius: 24px;
-  background: url("assets/bg/board-bg.webp") center / cover no-repeat, #fff3df;
+  background: url("assets/bg/board-bg.webp?v=2") center / cover no-repeat, #eef7fe;
   overflow: hidden;
   cursor: pointer;
   user-select: none;
@@ -184,7 +185,7 @@ body {
   padding: 6px;
   border-radius: 14px;
   background: #fff;
-  box-shadow: 0 6px 20px rgba(140, 96, 56, .18);
+  box-shadow: 0 6px 20px rgba(96, 128, 176, .18);
 }
 
 .sponsor-hint {
@@ -262,7 +263,7 @@ body {
   margin: 0;
   font-size: 26px;
   letter-spacing: .04em;
-  background: linear-gradient(100deg, #ff7a59, #ff4d6d 55%, #b13bff);
+  background: linear-gradient(100deg, #38bdf8, #6c8cff 52%, #a86cff);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -283,8 +284,8 @@ body {
 .stat {
   padding: 10px 12px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, .82);
-  box-shadow: 0 4px 14px rgba(140, 96, 56, .10);
+  background: rgba(255, 255, 255, .84);
+  box-shadow: 0 4px 14px rgba(96, 128, 176, .13);
 }
 
 .stat-label {
@@ -359,8 +360,8 @@ body {
   font-size: 12.5px;
   line-height: 1.6;
   color: #7a4a12;
-  background: rgba(255, 233, 190, .8);
-  box-shadow: inset 0 0 0 1px rgba(214, 160, 96, .25);
+  background: rgba(228, 241, 253, .82);
+  box-shadow: inset 0 0 0 1px rgba(122, 164, 210, .30);
 }
 
 /* 「用一枚复活币」：青绿色，跟珊瑚红的主按钮区分开 */
@@ -400,7 +401,7 @@ body {
   padding: 10px 12px;
   border-radius: 16px;
   background: rgba(255, 255, 255, .82);
-  box-shadow: 0 4px 14px rgba(140, 96, 56, .10);
+  box-shadow: 0 4px 14px rgba(96, 128, 176, .12);
 }
 
 #next {
@@ -433,7 +434,7 @@ body {
   border: 1px solid rgba(255, 255, 255, .75);
   border-radius: 14px;
   /* 生图裁出来的中段，横向拉伸；圆角由 border-radius 负责 */
-  background: url("assets/bg/btn-face.webp") center / 100% 100% no-repeat;
+  background: url("assets/bg/btn-face.webp?v=2") center / 100% 100% no-repeat;
   box-shadow: 0 6px 16px rgba(110, 130, 180, .22),
               inset 0 1px 0 rgba(255, 255, 255, .9);
   cursor: pointer;
@@ -453,7 +454,7 @@ body {
 .btn-primary {
   color: #fff;
   border-color: rgba(255, 255, 255, .6);
-  background: url("assets/bg/btn-face-primary.webp") center / 100% 100% no-repeat;
+  background: url("assets/bg/btn-face-primary.webp?v=2") center / 100% 100% no-repeat;
   text-shadow: 0 1px 2px rgba(150, 60, 20, .35);
   box-shadow: 0 6px 18px rgba(230, 110, 70, .34),
               inset 0 1px 0 rgba(255, 255, 255, .55);
@@ -465,8 +466,8 @@ body {
   margin: 0 0 14px;
   padding: 12px;
   border-radius: 16px;
-  background: rgba(255, 243, 224, .85);
-  box-shadow: inset 0 0 0 1px rgba(214, 160, 96, .22);
+  background: rgba(232, 243, 253, .88);
+  box-shadow: inset 0 0 0 1px rgba(122, 164, 210, .26);
 }
 
 .name-input {
@@ -478,7 +479,7 @@ body {
   font-size: 15px;
   color: var(--ink);
   text-align: center;
-  border: 1px solid rgba(214, 160, 96, .45);
+  border: 1px solid rgba(122, 164, 210, .45);
   border-radius: 12px;
   background: rgba(255, 255, 255, .95);
   outline: none;
@@ -534,8 +535,8 @@ body {
   margin-bottom: 10px;
   padding: 8px 12px;
   border-radius: 12px;
-  background: rgba(255, 243, 224, .9);
-  box-shadow: inset 0 0 0 1px rgba(214, 160, 96, .22);
+  background: rgba(232, 243, 253, .92);
+  box-shadow: inset 0 0 0 1px rgba(122, 164, 210, .26);
 }
 
 .nick-label {
@@ -552,7 +553,7 @@ body {
   font-size: 15px;      /* ≥16px 才不会被 iOS 自动放大，这里配合 viewport 也够用 */
   color: var(--ink);
   text-align: center;
-  border: 1px solid rgba(214, 160, 96, .45);
+  border: 1px solid rgba(122, 164, 210, .45);
   border-radius: 10px;
   background: #fff;
   outline: none;
@@ -654,7 +655,7 @@ body {
   margin-bottom: 6px;
   border-radius: 12px;
   background: rgba(255, 255, 255, .9);
-  box-shadow: 0 2px 6px rgba(140, 96, 56, .09);
+  box-shadow: 0 2px 6px rgba(96, 128, 176, .11);
 }
 
 .board-rank {
@@ -682,7 +683,7 @@ body {
   color: var(--brand);
 }
 
-.board-row.r1 { background: linear-gradient(100deg, #fff6d8, #ffe9a8); }
+.board-row.r1 { background: linear-gradient(100deg, #e8f4ff, #d3e8ff); }
 .board-row.r2 { background: linear-gradient(100deg, #f7f7fa, #e8e9ef); }
 .board-row.r3 { background: linear-gradient(100deg, #fdf0e2, #f6ddc4); }
 .board-row.r1 .board-rank,
@@ -789,7 +790,7 @@ body {
     padding: 6px 10px;
     border-radius: 12px;
     background: rgba(255, 255, 255, .9);
-    box-shadow: 0 2px 8px rgba(140, 96, 56, .12);
+    box-shadow: 0 2px 8px rgba(96, 128, 176, .14);
   }
 
   .stat-label { font-size: 10px; letter-spacing: .08em; }

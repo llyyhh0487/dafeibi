@@ -12,6 +12,7 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 BG = os.path.join(ROOT, "assets", "bg")
+SRC = os.path.join(BG, "_src")     # 生图原始大图放这里，不进仓库
 
 # (源文件, 输出文件, 目标尺寸, 质量)
 JOBS = [
@@ -22,7 +23,7 @@ JOBS = [
 
 def main():
     for src, dst, size, q in JOBS:
-        sp = os.path.join(BG, src)
+        sp = os.path.join(SRC, src)
         dp = os.path.join(BG, dst)
         if not os.path.exists(sp):
             print("  [跳过] 没有 %s" % src)

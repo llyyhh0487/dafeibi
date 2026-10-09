@@ -1121,24 +1121,18 @@
   }
 
   function drawBoard() {
-    /* 背景 */
-    const bg = ctx.createLinearGradient(0, 0, 0, H);
-    bg.addColorStop(0, '#fffaf0');
-    bg.addColorStop(0.55, '#fff2dc');
-    bg.addColorStop(1, '#ffe7c6');
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, W, H);
-
-    /* 顶部投放区高光 */
+    /* 底色交给 CSS 的 board-bg.webp —— 这里不再铺不透明渐变，
+       否则会把那张图整个盖住（render() 每帧已经 clearRect，留白是干净的）。
+       只叠一层很淡的白色高光，让投放区上沿亮一点。 */
     const top = ctx.createLinearGradient(0, 0, 0, 190);
-    top.addColorStop(0, 'rgba(255,255,255,.85)');
+    top.addColorStop(0, 'rgba(255,255,255,.70)');
     top.addColorStop(1, 'rgba(255,255,255,0)');
     ctx.fillStyle = top;
     ctx.fillRect(0, 0, W, 190);
 
     /* 内壁阴影 */
     ctx.save();
-    ctx.strokeStyle = 'rgba(196,150,100,.35)';
+    ctx.strokeStyle = 'rgba(122,164,210,.35)';
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(WALL, 0);
@@ -1155,7 +1149,7 @@
     ctx.lineWidth = 2;
     ctx.strokeStyle = danger
       ? 'rgba(255,72,72,' + (0.55 + 0.45 * Math.abs(Math.sin(performance.now() / 140))) + ')'
-      : 'rgba(226,152,120,.42)';
+      : 'rgba(150,178,214,.5)';
     ctx.beginPath();
     ctx.moveTo(WALL, DANGER_Y);
     ctx.lineTo(W - WALL, DANGER_Y);
