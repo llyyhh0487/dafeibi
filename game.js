@@ -91,6 +91,17 @@
   const BEST_KEY = 'dafeibi.best.v1';
   const MUTE_KEY = 'dafeibi.mute.v1';
 
+  /* 素材备用源。
+     实测国内访问 GitHub Pages 会忽快忽慢（同一文件测出 9 KB/s 也测出 198 KB/s），
+     而 raw.githubusercontent.com（Fastly）稳定在 ~32 KB/s。
+     所以贴图和语音都同时向两处各要一份，谁先到用谁 ——
+     多花一份流量，换「最坏情况」的下限。
+     两处都不通时（比如被墙），它们各自失败，逻辑会退回原来的重试。 */
+  const ALT_BASE = 'https://raw.githubusercontent.com/llyyhh0487/dafeibi/main/';
+  function altUrl(rel) {
+    return ALT_BASE + rel.replace(/^assets\//, '');
+  }
+
   /* 改名（合成大奶娃 → 合成大菲比）时做一次性键迁移，
      免得已经玩过的人本机最高分和静音设置被清掉。
      迁移必须跑在 Sound 和 state 读这两个键之前。 */
@@ -254,10 +265,21 @@
       tracks.sort((a, b) => (a.order || 0) - (b.order || 0));
       let pending = tracks.length;
       tracks.forEach(t => {
-        fetch(t.file)
-          .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.arrayBuffer(); })
-          .then(ab => c.decodeAudioData(ab))
+        /* 两个源同时拉，谁先到用谁；都失败才算这条音轨失败 */
+        const ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+        let done = false;
+        const urls = [t.file, altUrl(t.file)];
+        const attempt = (u) => fetch(u, ctrl ? { signal: ctrl.signal } : undefined)
+          .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.arrayBuffer(); });
+        Promise.any(urls.map(attempt))
+          .then(ab => {
+            if (done) return;
+            done = true;
+            if (ctrl) ctrl.abort();
+            return c.decodeAudioData(ab);
+          })
           .then(buf => {
+            if (!buf) return;
             this.buffers.push({ track: t, buf });
             if (window.console) console.log('[dafeibi] 语音就绪：' + t.name);
           })
@@ -1534,17 +1556,14 @@
     let left = 0;
 
     function fetchOne(f, attempt) {
-      const img = new Image();
-      img.onload = () => {
-        const ready = () => {
-          f.img = img;
-          if (spritesPending > 0) spritesPending--;
-          if (--left === 0) refreshPreviews();
-        };
-        if (img.decode) img.decode().then(ready, ready);
-        else ready();
-      };
-      img.onerror = () => {
+      const urls = [f.file, altUrl(f.file)];
+      let settled = false;
+      const imgs = [];
+      let pending = urls.length;
+
+      const giveUp = () => {
+        if (settled) return;
+        settled = true;
         if (attempt < SPRITE_RETRY) {
           /* 退避 + 抖动，避免一批图同时重试又同时失败 */
           const wait = 600 * Math.pow(2.4, attempt - 1) + Math.random() * 300;
@@ -1556,8 +1575,27 @@
         if (window.console) console.warn('[dafeibi] 素材载入失败，已回退为程序化水果：' + f.file);
         if (left === 0) refreshPreviews();
       };
-      /* 重试时换一个带参地址，绕开浏览器对上次失败结果的缓存 */
-      img.src = attempt > 1 ? (f.file + '?retry=' + attempt) : f.file;
+
+      urls.forEach(u => {
+        const img = new Image();
+        imgs.push(img);
+        img.onload = () => {
+          if (settled) return;
+          settled = true;
+          imgs.forEach(o => { if (o !== img) { try { o.src = ''; } catch (e) { /* 忽略 */ } } });
+          const ready = () => {
+            f.img = img;
+            if (spritesPending > 0) spritesPending--;
+            if (--left === 0) refreshPreviews();
+          };
+          if (img.decode) img.decode().then(ready, ready);
+          else ready();
+        };
+        img.onerror = () => { if (--pending === 0) giveUp(); };
+        /* 重试时换一个带参地址，绕开浏览器对上次失败结果的缓存 */
+        const bust = attempt > 1 ? (u.indexOf('?') < 0 ? '?retry=' + attempt : '&retry=' + attempt) : '';
+        img.src = u + bust;
+      });
     }
 
     for (let i = 0; i < FRUITS.length; i++) {
