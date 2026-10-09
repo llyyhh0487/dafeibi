@@ -1404,34 +1404,6 @@
       ctx.fillRect(0, 0, W, H);
       ctx.restore();
     }
-
-    /* 贴图没到位时挂个提示牌（弱网下这个状态可能持续十几秒） */
-    if (spritesPending > 0) drawLoadingTip();
-  }
-
-  function drawLoadingTip() {
-    const label = '贴图加载中…';
-    ctx.save();
-    ctx.font = '600 22px system-ui, "Microsoft YaHei", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    const tw = ctx.measureText(label).width;
-    const bw = tw + 52, bh = 48;
-    const bx = W / 2 - bw / 2, by = H * 0.44 - bh / 2;
-
-    ctx.fillStyle = 'rgba(255,255,255,.93)';
-    ctx.beginPath();
-    if (ctx.roundRect) ctx.roundRect(bx, by, bw, bh, bh / 2);
-    else ctx.rect(bx, by, bw, bh);
-    ctx.fill();
-
-    ctx.strokeStyle = 'rgba(122,164,210,.6)';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    ctx.fillStyle = '#5a7099';
-    ctx.fillText(label, W / 2, by + bh / 2 + 1);
-    ctx.restore();
   }
 
   /* ---------------------------------------------------------
@@ -1547,11 +1519,6 @@
     im.src = blurCfg.src;
   }
 
-  /* 还没到位的贴图数量。用来在画面上显示「加载中」——
-     否则玩家看到的是模糊占位图，会以为角色本来就长这样。
-     这也正是弱网（比如国内访问 github.io）下最容易发生的场景。 */
-  let spritesPending = 0;
-
   function loadSprites() {
     let left = 0;
 
@@ -1570,7 +1537,6 @@
           setTimeout(() => fetchOne(f, attempt + 1), wait);
           return;
         }
-        if (spritesPending > 0) spritesPending--;
         left--;
         if (window.console) console.warn('[dafeibi] 素材载入失败，已回退为程序化水果：' + f.file);
         if (left === 0) refreshPreviews();
@@ -1585,7 +1551,6 @@
           imgs.forEach(o => { if (o !== img) { try { o.src = ''; } catch (e) { /* 忽略 */ } } });
           const ready = () => {
             f.img = img;
-            if (spritesPending > 0) spritesPending--;
             if (--left === 0) refreshPreviews();
           };
           if (img.decode) img.decode().then(ready, ready);
@@ -1604,7 +1569,6 @@
       left++;
       fetchOne(f, 1);
     }
-    spritesPending = left;
     return left;
   }
 
