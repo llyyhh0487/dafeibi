@@ -21,10 +21,15 @@ def main():
     with io.open(SRC, encoding="utf-8") as f:
         d = json.load(f)
 
+    # key 会写进切句表，游戏用它指定"这一下只用某条音轨"
+    # （比如大招只放「哇！菲比」）。json 里还没有的轨道自动跳过。
     tracks = []
-    for key, label in (("jubi", "菲比啾比"), ("bibi", "菲比比")):
-        v = d[key]
+    for key, label in (("jubi", "菲比啾比"), ("bibi", "菲比比"), ("wow", "哇！菲比")):
+        v = d.get(key)
+        if not v:
+            continue
         tracks.append({
+            "key": key,
             "name": label,
             "file": "assets/sfx/phoebe-%s.mp4" % key,
             "duration": v["duration"],

@@ -274,8 +274,16 @@
     },
 
     /* 放一句。返回 true = 这次交给语音了；false = 调用方该用旧的合成音 */
-    play(tier) {
+    play(tier, only) {
       if (Sound.muted || !this.buffers || !this.buffers.length) return false;
+
+      /* only = 指定只用某条音轨（比如「哇！菲比」只给大招用）。
+         那条还没就绪就返回 false，让调用方退回原来的合成音效。 */
+      let pool = this.buffers;
+      if (only) {
+        pool = this.buffers.filter(b => b.track.key === only);
+        if (!pool.length) return false;
+      }
 
       const now = performance.now();
       if (this.active >= this.MAX_VOICES) return true;      // 已经够吵了，吃掉这次
@@ -288,7 +296,7 @@
       if (c.state === 'suspended') { try { c.resume(); } catch (e) {} }
       this.lastAt = now;
 
-      const pick = this.buffers[(Math.random() * this.buffers.length) | 0];
+      const pick = pool[(Math.random() * pool.length) | 0];
       const segs = pick.track.segs;
       if (!segs || !segs.length) return false;
       const seg = segs[(Math.random() * segs.length) | 0];
@@ -696,7 +704,10 @@
         addScore(MAX_BONUS);
         burst(mx, my, MAX_TIER, 90, 560);
         burst(mx, my, MAX_TIER - 2, 42, 340);
-        Sound.bonus();
+        /* 大招音效：优先放「哇！菲比」（wow 音轨，人工打点切出来的那几句），
+           还没就绪就退回原来的四音琶音。
+           这一下很稀有，所以不参与普通合成的并发限制。 */
+        if (!Voice.play(4, 'wow')) Sound.bonus();
         haptic(70);
         state.flash = 1.4;                    // 比普通合成更亮的全屏闪
         state.freeze = FREEZE_MS / 1000;      // 定格一下，让这一下有重量

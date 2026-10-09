@@ -43,8 +43,8 @@ body {
   font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
                system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   background:
+    url("assets/bg/page-bg.webp") center / cover no-repeat,
     radial-gradient(1200px 700px at 8% -12%,  #ffe9bd 0%, transparent 60%),
-    radial-gradient(900px 600px at 104% -6%,  #d5f0ff 0%, transparent 55%),
     radial-gradient(1000px 780px at 50% 118%, #ffdbe6 0%, transparent 62%),
     #fff9f1;
   display: grid;
@@ -72,7 +72,7 @@ body {
   aspect-ratio: 420 / 700;
   flex: 0 0 auto;
   border-radius: 24px;
-  background: #fff3df;
+  background: url("assets/bg/board-bg.webp") center / cover no-repeat, #fff3df;
   overflow: hidden;
   cursor: pointer;
   user-select: none;
@@ -429,18 +429,21 @@ body {
   font: inherit;
   font-size: 13.5px;
   font-weight: 600;
-  color: var(--ink);
-  border: 1px solid rgba(255, 255, 255, .9);
+  color: #43506e;
+  border: 1px solid rgba(255, 255, 255, .75);
   border-radius: 14px;
-  background: rgba(255, 255, 255, .9);
-  box-shadow: 0 6px 16px rgba(140, 96, 56, .14);
+  /* 生图裁出来的中段，横向拉伸；圆角由 border-radius 负责 */
+  background: url("assets/bg/btn-face.webp") center / 100% 100% no-repeat;
+  box-shadow: 0 6px 16px rgba(110, 130, 180, .22),
+              inset 0 1px 0 rgba(255, 255, 255, .9);
   cursor: pointer;
-  transition: transform .12s ease, box-shadow .12s ease, background .2s ease;
+  transition: transform .12s ease, box-shadow .12s ease, filter .2s ease;
 }
 
 .btn .ico { margin-right: 4px; }
 
-.btn:hover  { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(140, 96, 56, .2); }
+.btn:hover  { transform: translateY(-1px); filter: brightness(1.04);
+              box-shadow: 0 10px 22px rgba(110, 130, 180, .3); }
 .btn:active { transform: translateY(1px) scale(.985); }
 
 .btn:disabled { opacity: .55; cursor: default; transform: none; }
@@ -449,8 +452,11 @@ body {
 
 .btn-primary {
   color: #fff;
-  border-color: transparent;
-  background: linear-gradient(135deg, #ff8a5b, var(--brand) 55%, var(--brand-dark));
+  border-color: rgba(255, 255, 255, .6);
+  background: url("assets/bg/btn-face-primary.webp") center / 100% 100% no-repeat;
+  text-shadow: 0 1px 2px rgba(150, 60, 20, .35);
+  box-shadow: 0 6px 18px rgba(230, 110, 70, .34),
+              inset 0 1px 0 rgba(255, 255, 255, .55);
 }
 
 /* ---------------- 结束弹窗里的结算区 ---------------- */

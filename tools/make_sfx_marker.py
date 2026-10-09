@@ -26,6 +26,7 @@ OUT = os.path.join(os.path.expanduser("~"), "Desktop", "菲比切句工具.html"
 TRACKS = [
     ("jubi", "菲比啾比", "菲比啾比纯享版_音频.mp4"),
     ("bibi", "菲比比",   "菲比比？纯享版（番外）_音频.mp4"),
+    ("wow",  "哇！菲比", "哇！菲比（番外）_音频.mp4"),
 ]
 
 HTML = r"""<!DOCTYPE html>

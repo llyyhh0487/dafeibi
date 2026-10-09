@@ -8,3 +8,6 @@ desktop.ini
 # Python 缓存
 __pycache__/
 *.pyc
+
+# 生图原始大图（约 9MB），仓库里只留压缩后的 webp
+assets/bg/_src/
