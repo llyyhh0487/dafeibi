@@ -248,10 +248,10 @@
       this.loading = true;
       this.buffers = [];
       const tracks = (this.cfg.tracks || []).slice();
-      /* 关键：不等 Promise.all。
-         菲比比 287KB、菲比啾比 769KB，如果等两条都到齐才启用，
-         手机上要多等好几秒才出声。这里先拉小的那条，到手就能播。 */
-      tracks.sort((a, b) => (a.duration || 0) - (b.duration || 0));
+      /* 按优先级拉：小的、常用的先到（菲比比 287KB → 菲比啾比 751KB），
+         只在大招时才用到的「哇！菲比」放最后 —— 手机上普通合成能尽早出声。
+         不等 Promise.all：谁先到谁先能用。 */
+      tracks.sort((a, b) => (a.order || 0) - (b.order || 0));
       let pending = tracks.length;
       tracks.forEach(t => {
         fetch(t.file)

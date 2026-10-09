@@ -23,14 +23,19 @@ def main():
 
     # key 会写进切句表，游戏用它指定"这一下只用某条音轨"
     # （比如大招只放「哇！菲比」）。json 里还没有的轨道自动跳过。
+    # order = 加载优先级：小的、常用的先拉，稀有的大招音轨最后拉，
+    # 这样手机上普通合成能尽早出声。
     tracks = []
-    for key, label in (("jubi", "菲比啾比"), ("bibi", "菲比比"), ("wow", "哇！菲比")):
+    for key, label, order in (("bibi", "菲比比", 0),
+                              ("jubi", "菲比啾比", 1),
+                              ("wow", "哇！菲比", 2)):
         v = d.get(key)
         if not v:
             continue
         tracks.append({
             "key": key,
             "name": label,
+            "order": order,
             "file": "assets/sfx/phoebe-%s.mp4" % key,
             "duration": v["duration"],
             "segs": [[round(a, 3), round(b, 3)] for a, b in v["segments"]],
