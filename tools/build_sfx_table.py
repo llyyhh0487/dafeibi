@@ -36,7 +36,7 @@ def main():
             "key": key,
             "name": label,
             "order": order,
-            "file": "assets/sfx/phoebe-%s.mp4" % key,
+            "file": "assets/sfx/phoebe-%s.webm" % key,
             "duration": v["duration"],
             "segs": [[round(a, 3), round(b, 3)] for a, b in v["segments"]],
         })

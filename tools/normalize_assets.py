@@ -291,7 +291,7 @@ def process(entry, fill):
     canvas_img.paste(img, ((canvas - nw) // 2, (canvas - nh) // 2), img)
 
     out_path = os.path.join(OUT_DIR, entry["out"])
-    canvas_img.save(out_path, "WEBP", quality=90, method=6)
+    canvas_img.save(out_path, "WEBP", quality=75, method=6)
 
     # 6) 主色（给 game.js 的 c1/c2/pc1/pc2/line 用）
     ca = np.asarray(canvas_img)
